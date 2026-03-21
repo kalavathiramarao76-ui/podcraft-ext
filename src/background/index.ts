@@ -45,7 +45,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus?.create?.({
     id: "podcraft-sidepanel",
-    title: "Open PodCraft AI",
+    title: "Open EpicClip",
     contexts: ["page"],
     documentUrlPatterns: [
       "https://www.youtube.com/*",

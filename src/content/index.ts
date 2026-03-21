@@ -1,4 +1,4 @@
-// PodCraft AI Content Script
+// EpicClip Content Script
 // Injects "Repurpose Episode" button on YouTube and Spotify podcast pages
 
 function isPodcastPage(): boolean {

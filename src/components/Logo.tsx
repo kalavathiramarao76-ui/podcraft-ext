@@ -22,7 +22,7 @@ export default function Logo({ size = "md" }: { size?: "sm" | "md" }) {
       </div>
       <div>
         <h1 className={`${textClass} font-bold bg-gradient-to-r from-podcraft-purple to-podcraft-lavender bg-clip-text text-transparent`}>
-          PodCraft AI
+          EpicClip
         </h1>
       </div>
     </div>

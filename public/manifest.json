@@ -1,10 +1,16 @@
 {
   "manifest_version": 3,
-  "name": "PodCraft AI",
+  "name": "EpicClip \u2014 Podcast Repurposing & Content Generator",
   "version": "1.0.0",
-  "description": "Repurpose podcast episodes into summaries, clips, LinkedIn posts, Twitter threads, newsletters, and show notes.",
-  "permissions": ["sidePanel", "activeTab", "scripting"],
-  "host_permissions": ["https://sai.sharedllm.com/*"],
+  "description": "Repurpose podcasts into summaries, clips, LinkedIn posts, Twitter threads, newsletters & show notes with AI.",
+  "permissions": [
+    "sidePanel",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://sai.sharedllm.com/*"
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -27,7 +33,9 @@
         "https://youtube.com/*",
         "https://open.spotify.com/*"
       ],
-      "js": ["content.js"],
+      "js": [
+        "content.js"
+      ],
       "css": [],
       "run_at": "document_idle"
     }
@@ -36,5 +44,6 @@
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
-  }
+  },
+  "short_name": "EpicClip"
 }
