@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EpicClip - AI Podcast Repurposer | Chrome Web Store</title>
+<style>
+  :root { --accent: #8b5cf6; --accent-light: #a78bfa; --accent-dark: #7c3aed; --bg: #0f172a; --card: #1e293b; --card-hover: #334155; --text: #f1f5f9; --text-muted: #94a3b8; --border: #334155; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .hero { padding: 80px 0 60px; text-align: center; background: linear-gradient(180deg, rgba(139,92,246,0.15) 0%, transparent 100%); position: relative; }
+  .hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 50% 50%, rgba(139,92,246,0.08) 0%, transparent 50%); }
+  .hero-icon { width: 96px; height: 96px; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 48px; margin: 0 auto 24px; box-shadow: 0 20px 60px rgba(139,92,246,0.3); position: relative; }
+  .hero h1 { font-size: 56px; font-weight: 800; margin-bottom: 8px; background: linear-gradient(135deg, #fff, var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero .subtitle { font-size: 20px; color: var(--accent-light); font-weight: 600; margin-bottom: 16px; }
+  .hero .tagline { font-size: 18px; color: var(--text-muted); max-width: 620px; margin: 0 auto 32px; }
+  .badge-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .badge { background: var(--card); border: 1px solid var(--border); padding: 8px 16px; border-radius: 100px; font-size: 13px; color: var(--text-muted); }
+  .badge strong { color: var(--accent-light); }
+  .section { padding: 60px 0; }
+  .section-title { font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 12px; }
+  .section-desc { text-align: center; color: var(--text-muted); margin-bottom: 48px; font-size: 16px; }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .feature-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: all 0.3s; }
+  .feature-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139,92,246,0.15); }
+  .feature-card .icon { font-size: 32px; margin-bottom: 12px; }
+  .feature-card h3 { font-size: 18px; margin-bottom: 8px; }
+  .feature-card p { font-size: 14px; color: var(--text-muted); }
+  .feature-card .tag { display: inline-block; background: rgba(139,92,246,0.15); color: var(--accent-light); padding: 2px 10px; border-radius: 100px; font-size: 12px; margin-top: 8px; }
+  .flow-steps { display: flex; gap: 0; justify-content: center; flex-wrap: wrap; padding: 20px 0; }
+  .flow-step { display: flex; align-items: center; }
+  .flow-step-content { text-align: center; padding: 20px; }
+  .flow-num { width: 48px; height: 48px; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; margin: 0 auto 12px; }
+  .flow-step-content h4 { font-size: 15px; margin-bottom: 4px; }
+  .flow-step-content p { font-size: 13px; color: var(--text-muted); max-width: 140px; margin: 0 auto; }
+  .flow-arrow { color: var(--accent); font-size: 24px; padding: 0 4px; margin-top: -30px; }
+  .mock-section { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .mock-window { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+  .mock-titlebar { background: #0f172a; padding: 10px 16px; display: flex; align-items: center; gap: 8px; }
+  .mock-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .mock-dot.r { background: #ef4444; } .mock-dot.y { background: #eab308; } .mock-dot.g { background: #22c55e; }
+  .mock-titlebar span { color: var(--text-muted); font-size: 12px; margin-left: 12px; }
+  .mock-body { padding: 20px; }
+  .mock-label { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; font-weight: 600; }
+  .mock-input { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px; color: var(--text-muted); font-size: 13px; width: 100%; margin-bottom: 12px; }
+  .mock-btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .mock-btn { padding: 6px 14px; border-radius: 8px; font-size: 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text-muted); }
+  .mock-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .mock-generate { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: #fff; border: none; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; width: 100%; margin-top: 8px; }
+
+  /* Format cards */
+  .format-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 8px; }
+  .format-card .fmt-icon { font-size: 16px; margin-right: 6px; }
+  .format-card .fmt-title { font-size: 13px; color: var(--text); font-weight: 600; }
+  .format-card .fmt-desc { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+  .store-section { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 40px; margin-top: 20px; }
+  .store-section h3 { font-size: 20px; margin-bottom: 16px; color: var(--accent-light); }
+  .store-block { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 20px; position: relative; }
+  .store-block h4 { font-size: 14px; color: var(--accent-light); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .store-block p, .store-block li { font-size: 14px; color: var(--text-muted); line-height: 1.8; }
+  .store-block ul { list-style: none; padding: 0; }
+  .store-block ul li::before { content: '✓ '; color: var(--accent-light); font-weight: bold; }
+  .copy-hint { position: absolute; top: 12px; right: 12px; font-size: 11px; color: var(--text-muted); background: var(--card); padding: 2px 8px; border-radius: 4px; }
+  .release-item { border-left: 3px solid var(--accent); padding: 16px 20px; margin-bottom: 16px; background: var(--card); border-radius: 0 8px 8px 0; }
+  .release-item .version { font-size: 14px; font-weight: 700; color: var(--accent-light); }
+  .release-item .date { font-size: 12px; color: var(--text-muted); margin-left: 8px; }
+  .release-item ul { margin-top: 8px; padding-left: 16px; }
+  .release-item li { font-size: 13px; color: var(--text-muted); margin-bottom: 4px; }
+  .divider { height: 1px; background: var(--border); margin: 0; }
+  @media (max-width: 768px) { .hero h1 { font-size: 36px; } .mock-section { grid-template-columns: 1fr; } .flow-steps { flex-direction: column; align-items: center; } .flow-arrow { transform: rotate(90deg); } }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-icon">&#127911;</div>
+    <h1>EpicClip</h1>
+    <div class="subtitle">AI Podcast Repurposer</div>
+    <p class="tagline">Repurpose podcast episodes into 6 content formats: summaries, clips, LinkedIn posts, Twitter threads, newsletters, and show notes. Works on YouTube & Spotify.</p>
+    <div class="badge-row">
+      <div class="badge"><strong>6</strong> Content Formats</div>
+      <div class="badge">YouTube Integration</div>
+      <div class="badge">Spotify Integration</div>
+      <div class="badge">Generate All Mode</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">6 Content Formats</h2>
+    <p class="section-desc">Turn one podcast episode into a week's worth of content</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="icon">&#128221;</div>
+        <h3>Summarize</h3>
+        <p>Extract key points, main arguments, and actionable takeaways. Perfect for blog posts and content briefs.</p>
+        <span class="tag">Key Points</span>
+      </div>
+      <div class="feature-card">
+        <div class="icon">&#9986;&#65039;</div>
+        <h3>Clips</h3>
+        <p>Identify the most shareable segments with timestamps. Ready for short-form video or audiograms.</p>
+        <span class="tag">Shareable Segments</span>
+      </div>
+      <div class="feature-card">
+        <div class="icon">&#128188;</div>
+        <h3>LinkedIn Posts</h3>
+        <p>Generate LinkedIn posts with hooks and CTAs from episode insights. Optimized for engagement.</p>
+        <span class="tag">Hooks + CTAs</span>
+      </div>
+      <div class="feature-card">
+        <div class="icon">&#128038;</div>
+        <h3>Twitter Threads</h3>
+        <p>Break down episodes into tweet-sized insights. Each tweet under 280 characters, threaded for maximum reach.</p>
+        <span class="tag">280-char Tweets</span>
+      </div>
+      <div class="feature-card">
+        <div class="icon">&#128231;</div>
+        <h3>Newsletter Edition</h3>
+        <p>Complete newsletter with subject line, intro, key sections, and CTA. Ready for your email platform.</p>
+        <span class="tag">Full Edition</span>
+      </div>
+      <div class="feature-card">
+        <div class="icon">&#128466;&#65039;</div>
+        <h3>Show Notes</h3>
+        <p>Structured show notes with timestamps, chapter markers, guest bio, and resource links.</p>
+        <span class="tag">Timestamps + Chapters</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-desc">From podcast episode to multi-format content in minutes</p>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-step-content"><div class="flow-num">1</div><h4>Navigate</h4><p>Go to YouTube or Spotify</p></div></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-step"><div class="flow-step-content"><div class="flow-num">2</div><h4>Click Button</h4><p>Repurpose Episode</p></div></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-step"><div class="flow-step-content"><div class="flow-num">3</div><h4>Paste Transcript</h4><p>Or auto-extract</p></div></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-step"><div class="flow-step-content"><div class="flow-num">4</div><h4>Select Format</h4><p>Choose 1 or all 6</p></div></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-step"><div class="flow-step-content"><div class="flow-num">5</div><h4>Generate</h4><p>AI creates content</p></div></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-step"><div class="flow-step-content"><div class="flow-num">6</div><h4>Copy</h4><p>Use everywhere</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">See It in Action</h2>
+    <p class="section-desc">Intuitive interface for podcast content creators</p>
+    <div class="mock-section">
+      <div>
+        <p class="mock-label">EXTENSION POPUP</p>
+        <div class="mock-window">
+          <div class="mock-titlebar">
+            <div class="mock-dot r"></div><div class="mock-dot y"></div><div class="mock-dot g"></div>
+            <span>EpicClip</span>
+          </div>
+          <div class="mock-body">
+            <div style="display:flex;gap:8px;margin-bottom:12px">
+              <div class="mock-btn active" style="flex:1;text-align:center">&#128250; YouTube</div>
+              <div class="mock-btn" style="flex:1;text-align:center">&#127925; Spotify</div>
+            </div>
+            <div class="mock-input" style="min-height:50px">&#128466;&#65039; Paste transcript or auto-extract from page...</div>
+            <p class="mock-label">CONTENT FORMAT</p>
+            <div class="mock-btn-row">
+              <div class="mock-btn active">&#128221; Summarize</div>
+              <div class="mock-btn">&#9986;&#65039; Clips</div>
+              <div class="mock-btn">&#128188; LinkedIn</div>
+            </div>
+            <div class="mock-btn-row">
+              <div class="mock-btn">&#128038; Twitter</div>
+              <div class="mock-btn">&#128231; Newsletter</div>
+              <div class="mock-btn">&#128466;&#65039; Show Notes</div>
+            </div>
+            <button class="mock-generate">&#9889; Generate Content</button>
+            <div style="text-align:center;margin-top:8px">
+              <span style="font-size:12px;color:var(--accent-light);cursor:pointer">&#128640; Generate All 6 Formats</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="mock-label">GENERATED OUTPUT</p>
+        <div class="mock-window">
+          <div class="mock-titlebar">
+            <div class="mock-dot r"></div><div class="mock-dot y"></div><div class="mock-dot g"></div>
+            <span>EpicClip - LinkedIn Post</span>
+          </div>
+          <div class="mock-body">
+            <div class="format-card">
+              <span class="fmt-icon">&#128188;</span><span class="fmt-title">LinkedIn Post</span>
+              <div class="fmt-desc" style="margin-top:8px;font-size:12px;color:var(--text);line-height:1.6">
+                <strong>I interviewed 50 founders about their biggest mistake.</strong><br><br>
+                The #1 answer surprised me:<br><br>
+                "We built what we thought customers wanted, instead of what they actually needed."<br><br>
+                3 lessons from the conversation:<br><br>
+                1. Talk to 100 customers before writing a line of code<br>
+                2. Your MVP should be embarrassingly simple<br>
+                3. Speed of iteration beats perfection every time<br><br>
+                What's the biggest lesson you've learned as a founder?<br><br>
+                <span style="color:var(--accent-light)">#Startups #Founders #ProductDevelopment</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <div class="mock-btn active" style="flex:1;text-align:center;font-size:11px">&#128203; Copy</div>
+              <div class="mock-btn" style="flex:1;text-align:center;font-size:11px">&#128260; Regenerate</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">What's New</h2>
+    <p class="section-desc">Latest updates and improvements</p>
+    <div class="release-item">
+      <span class="version">v1.0.0</span><span class="date">March 2026</span>
+      <ul>
+        <li>Initial release with 6 content formats</li>
+        <li>YouTube and Spotify integration with injected buttons</li>
+        <li>"Generate All" batch mode for all 6 formats at once</li>
+        <li>LinkedIn post format with hooks and CTAs</li>
+        <li>Twitter thread format with 280-char tweet splitting</li>
+        <li>Newsletter edition with subject line and sections</li>
+        <li>Show notes with timestamps and chapter markers</li>
+        <li>One-click copy for all generated content</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="store-section">
+      <h3>&#127983; Chrome Web Store Listing (Copy-Paste Ready)</h3>
+      <div class="store-block">
+        <span class="copy-hint">&#128203; Copy</span>
+        <h4>Short Description (132 chars)</h4>
+        <p>Repurpose podcast episodes into 6 content formats: summaries, clips, LinkedIn posts, Twitter threads, newsletters, and show notes. Works on YouTube & Spotify.</p>
+      </div>
+      <div class="store-block">
+        <span class="copy-hint">&#128203; Copy</span>
+        <h4>Detailed Description</h4>
+        <p>EpicClip is an AI-powered podcast repurposer that transforms any podcast episode into 6 different content formats. Stop spending hours manually creating social posts, newsletters, and show notes from your episodes.</p>
+        <br>
+        <p><strong>Summarize:</strong> Extract key points, main arguments, and actionable takeaways from any episode.</p>
+        <br>
+        <p><strong>Clips:</strong> Identify the most shareable segments with timestamps, ready for short-form video or audiograms.</p>
+        <br>
+        <p><strong>LinkedIn Posts:</strong> Generate engagement-optimized LinkedIn posts with hooks and CTAs from episode insights.</p>
+        <br>
+        <p><strong>Twitter Threads:</strong> Break down episodes into tweet-sized insights, each under 280 characters, threaded for reach.</p>
+        <br>
+        <p><strong>Newsletter Edition:</strong> Complete newsletter with subject line, intro, key sections, and call-to-action.</p>
+        <br>
+        <p><strong>Show Notes:</strong> Structured show notes with timestamps, chapter markers, guest bios, and resource links.</p>
+        <br>
+        <p><strong>Generate All:</strong> Batch mode creates all 6 formats at once. Works directly on YouTube and Spotify with injected buttons.</p>
+      </div>
+      <div class="store-block">
+        <span class="copy-hint">&#128203; Copy</span>
+        <h4>Feature Bullet Points</h4>
+        <ul>
+          <li>6 content formats: Summarize, Clips, LinkedIn Posts, Twitter Threads, Newsletter, Show Notes</li>
+          <li>YouTube integration with injected "Repurpose" button</li>
+          <li>Spotify integration with injected "Repurpose" button</li>
+          <li>"Generate All" batch mode for all 6 formats at once</li>
+          <li>LinkedIn posts with hooks and CTAs optimized for engagement</li>
+          <li>Twitter threads with 280-character tweet splitting</li>
+          <li>Newsletter edition with subject line and structured sections</li>
+          <li>Show notes with timestamps, chapters, and resource links</li>
+          <li>One-click copy for all generated content</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="text-align:center; padding: 40px; color: var(--text-muted); font-size: 13px;">
+  EpicClip &mdash; AI Podcast Repurposer &mdash; Chrome Extension
+</div>
+
+</body>
+</html>
