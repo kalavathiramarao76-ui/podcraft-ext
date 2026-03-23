@@ -1,39 +1,84 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#8b5cf6"/>
-      <stop offset="100%" stop-color="#7c3aed"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#4c1d95"/>
     </linearGradient>
-    <linearGradient id="shine" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.2)"/>
-      <stop offset="50%" stop-color="rgba(255,255,255,0)"/>
+    <linearGradient id="bg-sheen" x1="0" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#4c1d95" stop-opacity="0"/>
     </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="soft-glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
   </defs>
+
   <!-- Background -->
   <rect width="128" height="128" rx="28" fill="url(#bg)"/>
-  <!-- Shine overlay -->
-  <rect width="128" height="128" rx="28" fill="url(#shine)"/>
-  <!-- Microphone -->
-  <g fill="white">
-    <!-- Mic head -->
-    <rect x="34" y="24" width="24" height="36" rx="12"/>
-    <!-- Mic stand -->
-    <rect x="44" y="60" width="4" height="18"/>
-    <!-- Mic base -->
-    <rect x="34" y="76" width="24" height="4" rx="2"/>
-    <!-- Mic arc -->
-    <path d="M28,48 C28,66 38,74 46,74" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
-    <path d="M64,48 C64,66 54,74 46,74" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+  <rect width="128" height="128" rx="28" fill="url(#bg-sheen)"/>
+
+  <!-- Subtle frequency lines in background -->
+  <g stroke="#ffffff" stroke-width="0.5" opacity="0.06">
+    <line x1="14" y1="30" x2="114" y2="30"/>
+    <line x1="14" y1="45" x2="114" y2="45"/>
+    <line x1="14" y1="60" x2="114" y2="60"/>
+    <line x1="14" y1="75" x2="114" y2="75"/>
+    <line x1="14" y1="90" x2="114" y2="90"/>
   </g>
-  <!-- Play button -->
-  <g fill="white" transform="translate(72, 36)">
-    <circle cx="18" cy="18" r="18" fill="white" opacity="0.2"/>
-    <polygon points="14,8 14,28 30,18" opacity="0.95"/>
+
+  <!-- Sound wave bars morphing into play button -->
+  <g filter="url(#shadow)">
+    <rect x="24" y="48" width="8" height="32" rx="4" fill="#ffffff" opacity="0.7"/>
+    <rect x="36" y="38" width="8" height="52" rx="4" fill="#ffffff" opacity="0.8"/>
+    <rect x="48" y="30" width="8" height="68" rx="4" fill="#ffffff" opacity="0.9"/>
+    <rect x="60" y="40" width="8" height="48" rx="4" fill="#ffffff" opacity="0.85"/>
+    <rect x="72" y="48" width="8" height="32" rx="4" fill="#ffffff" opacity="0.8"/>
+    <rect x="84" y="54" width="8" height="20" rx="4" fill="#ffffff" opacity="0.7"/>
+    <rect x="96" y="59" width="7" height="10" rx="3.5" fill="#ffffff" opacity="0.6"/>
+
+    <!-- Connecting envelope lines forming triangle -->
+    <path d="M28 48 L40 38 L52 30 L64 40 L76 48 L88 54 L100 59"
+          stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M28 80 L40 90 L52 98 L64 88 L76 80 L88 74 L100 69"
+          stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.3" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
-  <!-- Content lines -->
-  <g stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.6">
-    <line x1="72" y1="80" x2="102" y2="80"/>
-    <line x1="72" y1="90" x2="96" y2="90"/>
-    <line x1="72" y1="100" x2="88" y2="100"/>
+
+  <!-- Play button triangle outline overlay -->
+  <path d="M30 28 L30 100 L102 64 Z" stroke="#ffffff" stroke-width="1.2" fill="none" opacity="0.12" stroke-linejoin="round"/>
+
+  <!-- Small microphone icon -->
+  <g transform="translate(18, 96)" opacity="0.4" filter="url(#glow)">
+    <rect x="0" y="0" width="6" height="10" rx="3" fill="#ffffff"/>
+    <path d="M-2 8 Q-2 14 3 14 Q8 14 8 8" stroke="#ffffff" stroke-width="1.2" fill="none"/>
+    <line x1="3" y1="14" x2="3" y2="18" stroke="#ffffff" stroke-width="1.2"/>
+    <line x1="0" y1="18" x2="6" y2="18" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/>
+  </g>
+
+  <!-- Audio rings from play button tip -->
+  <g stroke="#ffffff" fill="none" opacity="0.3" filter="url(#soft-glow)">
+    <path d="M100 58 Q106 64 100 70" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M104 54 Q112 64 104 74" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M108 50 Q118 64 108 78" stroke-width="0.8" stroke-linecap="round"/>
+  </g>
+
+  <!-- Musical note accent -->
+  <g fill="#ffffff" opacity="0.35" filter="url(#glow)" transform="translate(100, 28)">
+    <circle cx="0" cy="8" r="3"/>
+    <rect x="3" y="-6" width="1.5" height="14"/>
+    <path d="M4.5 -6 Q10 -10 10 -4 Q10 -2 4.5 0" fill="#ffffff" opacity="0.6"/>
   </g>
 </svg>
