@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.2)"/>
+      <stop offset="50%" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+  <!-- Shine overlay -->
+  <rect width="128" height="128" rx="28" fill="url(#shine)"/>
+  <!-- Microphone -->
+  <g fill="white">
+    <!-- Mic head -->
+    <rect x="34" y="24" width="24" height="36" rx="12"/>
+    <!-- Mic stand -->
+    <rect x="44" y="60" width="4" height="18"/>
+    <!-- Mic base -->
+    <rect x="34" y="76" width="24" height="4" rx="2"/>
+    <!-- Mic arc -->
+    <path d="M28,48 C28,66 38,74 46,74" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M64,48 C64,66 54,74 46,74" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+  </g>
+  <!-- Play button -->
+  <g fill="white" transform="translate(72, 36)">
+    <circle cx="18" cy="18" r="18" fill="white" opacity="0.2"/>
+    <polygon points="14,8 14,28 30,18" opacity="0.95"/>
+  </g>
+  <!-- Content lines -->
+  <g stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.6">
+    <line x1="72" y1="80" x2="102" y2="80"/>
+    <line x1="72" y1="90" x2="96" y2="90"/>
+    <line x1="72" y1="100" x2="88" y2="100"/>
+  </g>
+</svg>
