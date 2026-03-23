@@ -1,3 +1,5 @@
+<p align="center"><img src="public/icons/logo.svg" width="128" height="128" alt="EpicClip Logo"></p>
+
 # EpicClip — AI Podcast Repurposer
 
 ![Version](https://img.shields.io/badge/version-1.0.0-A855F7)
@@ -124,11 +126,12 @@ podcraft-ext/
 ## Screenshots
 
 <p align="center">
-  <img src="public/icons/icon128.png" alt="EpicClip Icon" width="128" height="128" />
+  <img src="public/icons/logo.svg" alt="EpicClip Logo" width="128" height="128" />
 </p>
 
-| Icon Size | Path |
+| Icon | Path |
 |---|---|
+| SVG Logo | `public/icons/logo.svg` |
 | 16x16 | `public/icons/icon16.png` |
 | 48x48 | `public/icons/icon48.png` |
 | 128x128 | `public/icons/icon128.png` |
